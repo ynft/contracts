@@ -36,7 +36,7 @@ contract TestNft is
         "https://ynft.github.io/metadata/unrevealed.json";
 
     constructor() ERC721("TEST NFT", "TNFT") {
-        _setDefaultRoyalty(0x3ecb3f07da57fe7de2c685833bf85015b5219769, 700);
+        _setDefaultRoyalty(0x3ecb3F07DA57Fe7De2c685833bF85015b5219769, 700);
 
         // Setting start tokenId from 1.
         _tokenIdCounter.increment();
