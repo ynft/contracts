@@ -1,2 +1,1 @@
-# contracts
-NFT Smart Contracts
+# Test NFT Smart Contracts

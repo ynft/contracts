@@ -1,0 +1,62 @@
+{
+  "name": "contracts",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Test NFT Smart Contracts",
+  "scripts": {
+    "clean": "rimraf ./build/ && mkdirp ./build/ && rimraf ./flatten/ && mkdirp ./flatten",
+    "precompile": "yarn clean",
+    "compile": "truffle compile",
+    "postcompile": "yarn run flatten",
+    "predeploy": "yarn run compile",
+    "deploy": "truffle migrations --network",
+    "test": "truffle test",
+    "verify": "truffle run verify --network",
+    "ganache": "node ./scripts/ganache-cli.js",
+    "flatten": "waffle flatten",
+    "mnemonic": "npx mnemonics"
+  },
+  "files": [
+    "contracts",
+    "build"
+  ],
+  "dependencies": {
+    "@openzeppelin/contracts": "^4.8.2",
+    "operator-filter-registry": "^1.4.1"
+  },
+  "devDependencies": {
+    "@truffle/hdwallet-provider": "^2.1.9",
+    "dotenv": "^16.0.3",
+    "ethereum-waffle": "^4.0.10",
+    "ganache-cli": "^6.12.2",
+    "mkdirp": "^2.1.6",
+    "rimraf": "^4.4.1",
+    "truffle": "^5.8.1",
+    "truffle-plugin-verify": "^0.6.2"
+  },
+  "author": {
+    "name": "Aleksandr Ivannikov",
+    "email": "info@ivannikov.pro",
+    "url": "https://ivannikov.pro/"
+  },
+  "homepage": "https://github.com/ynft/contracts#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ynft/contracts.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ynft/contracts/issues",
+    "email": "info@ivannikov.pro"
+  },
+  "keywords": [
+    "opensea",
+    "nft"
+  ],
+  "contributors": [
+    {
+      "name": "Aleksandr Ivannikov",
+      "email": "info@ivannikov.pro",
+      "url": "https://ivannikov.pro/"
+    }
+  ]
+}
