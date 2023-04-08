@@ -81,6 +81,18 @@ contract TestNft is
         }
     }
 
+    function withdraw(uint256 amount) external nonReentrant onlyOwner {
+        if (amount > address(this).balance) {
+            amount = address(this).balance;
+        }
+        _sendEth(payable(_msgSender()), amount);
+    }
+
+    function _sendEth(address payable recipient, uint256 amount) private {
+        (bool success, ) = recipient.call{value: amount}("");
+        require(success, "ETH_TRANSFER_FAILED");
+    }
+
     // Extra
     function rawOwnerOf(uint256 tokenId) external view returns (address) {
         return _ownerOf(tokenId);
