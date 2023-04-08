@@ -25,12 +25,12 @@ module.exports = {
           runs: 200,
         },
         //evmVersion: 'london',
-      }
-    }
+      },
+    },
   },
 
   plugins: [
-    'truffle-plugin-verify'
+    'truffle-plugin-verify',
   ],
 
   api_keys: {
@@ -38,6 +38,22 @@ module.exports = {
   },
 
   networks: {
+    goerli: {
+      provider: () => {
+        return new HDWalletProvider({
+          mnemonic: {
+            phrase: MNEMONIC,
+          },
+          numberOfAddresses: 1001,
+          providerOrUrl: 'https://goerli.infura.io/v3/' + INFURA_API_KEY,
+        });
+      },
+      network_id: 5,
+      gas: 8500000,
+      gasPrice: 20000000000,  // 20000000000 = 20 gwei (in wei) (default: 100 gwei)
+      skipDryRun: true,
+    },
+
     // Useful for testing. The `development` name is special - truffle uses it by default
     // if it's defined here and no other network is specified at the command line.
     // You should run a client (like ganache-cli, geth or parity) in a separate terminal

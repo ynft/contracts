@@ -23,7 +23,7 @@ contract TestNft is
     using Strings for uint256;
     using Counters for Counters.Counter;
 
-    uint256 private constant MAX_SUPPLY = 10000;
+    uint256 private constant MAX_SUPPLY = 10_000;
     Counters.Counter private _tokenIdCounter;
 
     // Metadata
@@ -31,7 +31,7 @@ contract TestNft is
         "https://ynft.github.io/metadata/contract.json";
     string private _baseURL = "https://ynft.github.io/metadata/";
     string private _baseExt = ".json";
-    bool private _revealed = false;
+    bool private _revealed;
     string private _notRevealedURI =
         "https://ynft.github.io/metadata/unrevealed.json";
 
@@ -42,17 +42,19 @@ contract TestNft is
         _tokenIdCounter.increment();
     }
 
-    function mint(address to) external nonReentrant onlyOwner {
-        require((totalSupply() + 1) <= MAX_SUPPLY, "MAX_SUPPLY");
-        uint256 tokenId = _tokenIdCounter.current();
-        _tokenIdCounter.increment();
-        _safeMint(to, tokenId);
+    function mint(uint256 quantity) external payable nonReentrant {
+        require((totalSupply() + quantity) <= MAX_SUPPLY, "MAX_SUPPLY");
+        for (uint256 i = 0; i < quantity; i++) {
+            uint256 tokenId = _tokenIdCounter.current();
+            _tokenIdCounter.increment();
+            _safeMint(_msgSender(), tokenId);
+        }
     }
 
     function mintMany(
         address to,
         uint256 quantity
-    ) external nonReentrant onlyOwner {
+    ) external payable nonReentrant onlyOwner {
         require((totalSupply() + quantity) <= MAX_SUPPLY, "MAX_SUPPLY");
         for (uint256 i = 0; i < quantity; i++) {
             uint256 tokenId = _tokenIdCounter.current();
@@ -64,7 +66,7 @@ contract TestNft is
     function mintBatch(
         address[] memory accounts,
         uint256[] memory quantities
-    ) external nonReentrant onlyOwner {
+    ) external payable nonReentrant onlyOwner {
         require(accounts.length == quantities.length, "MISMATCH");
         for (uint256 i = 0; i < accounts.length; i++) {
             require(
